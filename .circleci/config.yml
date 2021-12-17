@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  kubernetes: circleci/kubernetes@0.12.0
+  aws-cli: circleci/aws-cli@2.0
+  aws-eks: circleci/aws-eks@0.2.3
+
+  jobs:
+  build-app:
+    docker:
+      - image: circleci/node:16.13.0
+    steps:
+      - checkout
+      - run:
+          name: Build front-end
+          command: |
+            # Your code here
+            sudo npm i
+            npm run build
+      - save_cache:
+          key: frontend-build
+          paths: [node_modules]
