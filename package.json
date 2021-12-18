@@ -32,10 +32,11 @@
           "files": ["**/*.js?(x)"],
           "rules": {
             "no-console":"error",
-            "max-len": "warn"
+            "max-len": "82"
           }
         }
       ]
+
     },
     "browserslist": {
       "production": [
