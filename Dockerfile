@@ -1,10 +1,10 @@
 FROM node:16-alpine3.13 as builder
 
-WORKDIR /usr/app/app
+WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY public ./public
-COPY app  ./app
+COPY src  ./src
 COPY conf  ./conf
 
 RUN npm install; npm run build 
@@ -21,7 +21,7 @@ RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
 
 # copy static files
-COPY --from=builder /usr/app/app/build /usr/share/nginx/html
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
 # expose port
 EXPOSE 80
