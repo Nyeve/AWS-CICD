@@ -74,6 +74,19 @@ jobs:
             # Your code here
             npm run test:coverage
 
+  push-app-to-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build docker container
+          command: |
+                docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
+                docker build -t awscicd:latest .
+                docker images ls
+                docker tag awscicd ${DOCKER_USR}/awscicd:latest
+                docker push ${DOCKER_USR}/awscicd:latest
+
 
 
 workflows:
@@ -86,3 +99,8 @@ workflows:
           requires: [build-app]
       - test-app:
           requires: [build-app]
+      - push-app-to-docker:
+          requires: [test-app,lint-docker,lint-app]
+          filters:
+            branches:
+              only: [main]
