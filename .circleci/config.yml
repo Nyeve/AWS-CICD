@@ -87,6 +87,38 @@ jobs:
                 docker tag awscicd ${DOCKER_USR}/awscicd:latest
                 docker push ${DOCKER_USR}/awscicd:latest
 
+  deploy-to-ECS:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Install AWS CLI dependencies
+          working_directory: /tmp
+          command: |
+            sudo apt-get update && sudo apt-get install -yy less
+            sudo apt-get install unzip -y
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
+      - run:
+          name: Update Docker Image in ECS
+          command: |
+            echo "Pre-Build Steps:"
+            echo "authenticating with AWS ECR..."
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 756437418345.dkr.ecr.us-east-1.amazonaws.com/devopscapstone
+
+            echo "Build Steps:"
+            echo "building image..."
+            docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/devopscapstone/awscicd:latest .
+            
+            echo "Post-Build Steps:"
+            echo "pushing image to AWS ECR..."
+            docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/devopscapstone/awscicd:latest
+
+            echo "updating AWS ECS service..."
+            aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
+            echo "Done!"
 
 
 workflows:
@@ -104,3 +136,5 @@ workflows:
           filters:
             branches:
               only: [main]
+      - deploy-to-ECS:
+          requires: [push-app]
