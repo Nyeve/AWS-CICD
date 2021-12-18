@@ -5,7 +5,7 @@ orbs:
   aws-cli: circleci/aws-cli@2.0
   aws-eks: circleci/aws-eks@0.2.3
 
-  jobs:
+jobs:
   build-app:
     docker:
       - image: circleci/node:16.13.0
