@@ -20,3 +20,10 @@ orbs:
       - save_cache:
           key: frontend-build
           paths: [node_modules]
+
+
+
+workflows:
+  default:
+    jobs:
+      - build-app
