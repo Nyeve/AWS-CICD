@@ -32,7 +32,7 @@
           "files": ["**/*.js?(x)"],
           "rules": {
             "no-console":"error",
-            "max-len": "82"
+            "max-len": "warn"
           }
         }
       ]
