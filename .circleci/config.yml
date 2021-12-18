@@ -137,4 +137,4 @@ workflows:
             branches:
               only: [main]
       - deploy-to-ECS:
-          requires: [push-app]
+          requires: [push-app-to-docker]
