@@ -20,6 +20,59 @@ orbs:
       - save_cache:
           key: frontend-build
           paths: [node_modules]
+  
+  lint-app:
+    docker:
+      - image: circleci/node:16.13.0
+    steps:
+      # Checkout code from git
+      - checkout
+      # Restore from cache
+      - restore_cache:
+          key: frontend-build
+      # Your job code here
+      - run:
+          name: lint app
+          command: |
+            # Your code here
+            npm run lint
+  lint-docker:
+    docker:
+      - image: python:3.7.3-stretch
+    steps:
+      # Checkout code from git
+      - checkout
+      # Restore from cache
+      - restore_cache:
+          key: frontend-build
+      # Your job code here
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
+      - run:
+          name: run lint
+          command: |
+            . venv/bin/activate
+            hadolint ./Dockerfile
+  test-app:
+    docker:
+      - image: circleci/node:16.13.0
+    steps:
+      # Checkout code from git
+      - checkout
+      # Restore from cache
+      - restore_cache:
+          key: frontend-build
+      # Your job code here
+      - run:
+          name: test frontend
+          command: |
+            # Your code here
+            npm run test:coverage
 
 
 
@@ -27,3 +80,9 @@ workflows:
   default:
     jobs:
       - build-app
+      - lint-app:
+          requires: [build-app]
+      - lint-docker:
+          requires: [build-app]
+      - test-app:
+          requires: [build-app]
