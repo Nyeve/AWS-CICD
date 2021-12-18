@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   name: awscicd
   labels:
-    app: awscicd
+    app: AWSCICD
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: awscicd
+      app: AWSCICD
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -21,9 +21,9 @@ spec:
         app: awscicd
     spec:
       containers:
-        - image: luuizpaulo/awscicd:latest
+        - image: nyeve/AWSCICD:latest
           imagePullPolicy: Always
-          name: awscicd
+          name: AWSCICD
           ports:
             - containerPort: 3000
 
@@ -31,13 +31,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: awscicd
+  name: AWSCICD
   labels:
-    app: awscicd
+    app: AWSCICD
 spec:
   type: LoadBalancer
   selector:
-    app: awscicd
+    app: AWSCICD
   ports:
     - port: 3000
       targetPort: 3000
