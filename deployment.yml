@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: awscicd
+  labels:
+    app: awscicd
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: awscicd
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: awscicd
+    spec:
+      containers:
+        - image: luuizpaulo/awscicd:latest
+          imagePullPolicy: Always
+          name: awscicd
+          ports:
+            - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: awscicd
+  labels:
+    app: awscicd
+spec:
+  type: LoadBalancer
+  selector:
+    app: awscicd
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30000
+      protocol: TCP
