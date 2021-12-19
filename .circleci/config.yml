@@ -138,5 +138,5 @@ workflows:
           filters:
             branches:
               only: [main]
-      - deploy-to-ECS:
+      - deploy-to-ECR:
           requires: [push-app-to-docker]
