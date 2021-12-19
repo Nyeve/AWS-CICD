@@ -87,7 +87,7 @@ jobs:
                 docker tag awscicd ${DOCKER_USR}/awscicd:latest
                 docker push ${DOCKER_USR}/awscicd:latest
 
-  deploy-to-ECS:
+  deploy-to-ECR:
     machine: true
     steps:
       - checkout
@@ -106,19 +106,21 @@ jobs:
           command: |
             echo "Pre-Build Steps:"
             echo "authenticating with AWS ECR..."
-            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 756437418345.dkr.ecr.us-east-1.amazonaws.com/
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 756437418345.dkr.ecr.us-east-1.amazonaws.com
 
             echo "Build Steps:"
             echo "building image..."
             docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/awscicd:latest .
+            #docker build -t devopscapstone .
             
             echo "Post-Build Steps:"
             echo "pushing image to AWS ECR..."
+            docker tag awscicd:latest 756437418345.dkr.ecr.us-east-1.amazonaws.com/awscicd:latest
             docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/awscicd:latest
 
-            #echo "updating AWS ECS service..."
-            #aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
-            #echo "Done!"
+            echo "updating AWS ECS service..."
+            aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
+            echo "Done!"
 
 
 workflows:
