@@ -116,9 +116,9 @@ jobs:
             echo "pushing image to AWS ECR..."
             docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/devopscapstone/awscicd:latest
 
-            echo "updating AWS ECS service..."
-            aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
-            echo "Done!"
+            #echo "updating AWS ECS service..."
+            #aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
+            #echo "Done!"
 
 
 workflows:
