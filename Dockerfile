@@ -27,4 +27,4 @@ COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
 
 # run nginx
-CMD ["nginx", "-g", "daemon off;"]
+#CMD ["nginx", "-g", "daemon off;"]
