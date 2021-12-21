@@ -4,7 +4,7 @@
 
 # Step 1:
 # Build image and add a descriptive tag
-docker build -t awscicd:latest .
+docker build -t capstone:latest .
 
 # Step 2: 
 # List docker images
@@ -12,4 +12,4 @@ docker images ls
 
 # Step 3: 
 # Run flask app
-docker run -t -i -p 8080:3000 awscicd :latest
+docker run -t -i -p 8080:3000 capstone :latest

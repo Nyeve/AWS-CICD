@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: awscicd
+  name: capstone
   labels:
-    app: awscicd
+    app: castone
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: awscicd
+      app: capstone
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: awscicd
+        app: capstone
     spec:
       containers:
-        - image: nyeve/awscicd:latest
+        - image: nyeve/capstone:latest
           imagePullPolicy: Always
-          name: awscicd
+          name: capstone
           ports:
             - containerPort: 3000
 
@@ -31,13 +31,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: awscicd
+  name: capstone
   labels:
-    app: awscicd
+    app: capstone
 spec:
   type: LoadBalancer
   selector:
-    app: awscicd
+    app: capstone
   ports:
     - port: 3000
       targetPort: 3000

@@ -82,10 +82,11 @@ jobs:
           name: Build docker container
           command: |
                 docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
-                docker build -t awscicd:latest .
+                docker build -t capstone:latest .
                 docker images ls
-                docker tag awscicd:latest ${DOCKER_USR}/awscicd:latest
-                docker push ${DOCKER_USR}/awscicd:latest
+                docker rmi awscicd
+                docker tag capstone:latest ${DOCKER_USR}/capstone:latest
+                docker push ${DOCKER_USR}/capstone:latest
 
   deploy-to-ECR:
     machine: true
@@ -110,13 +111,13 @@ jobs:
 
             echo "Build Steps:"
             echo "building image..."
-            docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/awscicd .
+            docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone .
             #docker build -t devopscapstone .
             
             echo "Post-Build Steps:"
             echo "pushing image to AWS ECR..."
-            docker tag awscicd 756437418345.dkr.ecr.us-east-1.amazonaws.com/awscicd
-            docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/awscicd
+            docker tag capstone 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone
+            docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone
 
             echo "updating AWS ECS service..."
             aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
