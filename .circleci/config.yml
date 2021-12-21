@@ -84,7 +84,7 @@ jobs:
                 docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
                 docker build -t capstone:latest .
                 docker images ls
-                docker rmi awscicd
+                #docker rmi awscicd
                 docker tag capstone:latest ${DOCKER_USR}/capstone:latest
                 docker push ${DOCKER_USR}/capstone:latest
 
@@ -112,7 +112,7 @@ jobs:
             echo "Build Steps:"
             echo "building image..."
             docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone .
-            #docker build -t devopscapstone .
+
             
             echo "Post-Build Steps:"
             echo "pushing image to AWS ECR..."
@@ -120,7 +120,7 @@ jobs:
             docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone
 
             echo "updating AWS ECS service..."
-            aws ecs update-service --cluster awscicd-cluster --service react-sv --force-new-deployment --no-cli-pager
+            aws ecs update-service --cluster capstone-cluster --service react-sv --force-new-deployment --no-cli-pager
             echo "Done!"
 
 
