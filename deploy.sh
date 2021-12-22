@@ -8,12 +8,12 @@ echo "Build Steps:"
 echo "building image..."
 docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest .
 #create ecr repo
-aws ecr repository --repository-name awscicd/capstone
+#aws ecr repository --repository-name awscicd/capstone
 
-echo "Post-Build Steps:"
-echo "pushing image to AWS ECR..."
-docker tag capstone:latest 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
-docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
+#echo "Post-Build Steps:"
+#echo "pushing image to AWS ECR..."
+#docker tag capstone:latest 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
+#docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
 
 echo "updating AWS ECS service..."
 aws ecs update-service --cluster capstone-cluster --service react-sv --force-new-deployment --no-cli-pager
