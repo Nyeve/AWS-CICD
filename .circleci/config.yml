@@ -83,10 +83,10 @@ jobs:
           command: |
                 docker build -t nyeve/capstone:latest .
                 docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
-                docker images ls
+                #docker images ls
                 #docker pull capstone:latest
-                docker tag capstone:latest ${DOCKER_USR}/capstone:latest
-                docker push ${DOCKER_USR}/capstone:latest
+                #docker tag capstone:latest ${DOCKER_USR}/capstone:latest
+                docker push nyeve/capstone:latest
 
   # deploy-to-ECS:
   #   machine: true
