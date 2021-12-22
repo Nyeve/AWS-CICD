@@ -72,7 +72,7 @@ jobs:
           name: test frontend
           command: |
             # Your code here
-            npm run test:coverage
+           #  npm run test:coverage
 
   push-app-to-docker:
     machine: true
@@ -184,12 +184,12 @@ workflows:
   default:
     jobs:
       - build-app
-      - lint-app:
-          requires: [build-app]
+      #- lint-app:
+        #  requires: [build-app]
       - lint-docker:
           requires: [build-app]
-      - test-app:
-          requires: [build-app]
+      #- test-app:
+       #   requires: [build-app]
       - push-app-to-docker:
           requires: [test-app,lint-docker,lint-app]
           filters:
