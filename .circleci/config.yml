@@ -81,8 +81,8 @@ jobs:
       - run:
           name: Build docker container
           command: |
+                docker build -t nyeve/capstone:latest .
                 docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
-                docker build -t ${DOCKER_USR}/capstone:latest .
                 docker images ls
                 #docker pull capstone:latest
                 docker tag capstone:latest ${DOCKER_USR}/capstone:latest
