@@ -1,30 +1,19 @@
-FROM node:16-alpine3.13 as builder
+FROM node:16
 
+# Create app directory
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY public ./public
-COPY src  ./src
-COPY conf  ./conf
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-RUN npm install; npm run build 
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
 
-#EXPOSE 3000
+# Bundle app source
+COPY . .
 
-#NGINX server
-
-# base image
-FROM nginx:1.19.4-alpine
-
-# update nginx conf
-RUN rm -rf /etc/nginx/conf.d
-COPY conf /etc/nginx
-
-# copy static files
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
-
-# expose port
-EXPOSE 80
-
-# run nginx
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
+CMD [ "node", "server.js" ]

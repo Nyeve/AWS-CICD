@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: capstone
+  name: nodeapp
   labels:
-    app: capstone
+    app: nodeapp
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: capstone
+      app: nodeapp
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,14 +18,14 @@ spec:
   template:
     metadata:
       labels:
-        app: capstone
+        app: nodeapp
     spec:
       containers:
         - image: nyeve/capstone:latest
           imagePullPolicy: Always
-          name: capstone
+          name: nodeapp
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
 
 ---
 apiVersion: v1

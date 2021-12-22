@@ -5,7 +5,7 @@
 
 # Step 1:
 # Create dockerpath
-dockerpath=nyeve/capstone
+dockerpath=nyeve/nodeapp
 
 # Step 2:  
 # Authenticate & tag
