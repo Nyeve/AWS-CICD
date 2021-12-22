@@ -130,7 +130,11 @@ jobs:
   create-cluster:
     executor: aws-eks/python3
     parameters:
+<<<<<<< HEAD
       cluster-name: 
+=======
+      cluster-name:
+>>>>>>> 26a111404e40727c1fb0d8cfc14df1faaef3d7da
         description: |
           Name of the EKS cluster
         type: string
@@ -166,14 +170,18 @@ jobs:
     requires: [create-cluster]
     executor: aws-eks/python3
     parameters:
+<<<<<<< HEAD
       cluster-name: 
+=======
+      cluster-name:
+>>>>>>> 26a111404e40727c1fb0d8cfc14df1faaef3d7da
         description: |
           Name of the EKS cluster
-        type: string
+      type: string
       aws-region:
         description: |
           AWS region
-        type: string
+          type: string
         default: ""
     steps:
       - checkout
