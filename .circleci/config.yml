@@ -198,7 +198,7 @@ workflows:
           filters:
             branches:
               only: [main]
-      - deloy-to-ECS:
+      - deploy-to-ECS:
           requires: [push-app-to-docker]
       #- create-deployment:
           #requires: [create-cluster]
