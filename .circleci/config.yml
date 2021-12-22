@@ -84,7 +84,7 @@ jobs:
                 docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
                 docker build -t capstone:latest .
                 docker images ls
-                #docker rmi awscicd
+                
                 docker tag capstone:latest ${DOCKER_USR}/capstone:latest
                 docker push ${DOCKER_USR}/capstone:latest
 
@@ -101,6 +101,8 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
+            aws --version
+
 
       - run:
           name: Update Docker Image in ECS
@@ -116,8 +118,8 @@ jobs:
             #aws ecr repository --repository-name awscicd/capstone
             #echo "Post-Build Steps:"
             #echo "pushing image to AWS ECR..."
-            #docker tag capstone:latest 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
-            #docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
+            docker tag capstone:latest 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
+            docker push 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone:latest
             
             
             echo "updating AWS ECS service..."
