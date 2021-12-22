@@ -15,8 +15,8 @@ jobs:
           name: Build front-end
           command: |
             # Your code here
-            sudo npm i
-            npm run build
+            sudo npm install
+            #npm run build
       - save_cache:
           key: frontend-build
           paths: [node_modules]
@@ -85,7 +85,7 @@ jobs:
                 docker login --username ${DOCKER_USR} --password ${DOCKER_PWD}
                 docker images ls
                 #docker pull nodeapp:latest
-                #docker tag nodeapp:latest ${DOCKER_USR}/capstone:latest
+                #docker tag nodeapp:latest ${DOCKER_USR}/nodeapp:latest
                 docker push nyeve/nodeapp:latest
 
   # deploy-to-ECS:
