@@ -103,7 +103,6 @@ jobs:
   #           sudo ./aws/install
   #           aws --version
 
-
   #     - run:
   #         name: Update Docker Image in ECS
   #         command: |
