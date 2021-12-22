@@ -113,7 +113,6 @@ jobs:
   #           echo "Build Steps:"
   #           echo "building image..."
   #           docker build -t 756437418345.dkr.ecr.us-east-1.amazonaws.com/capstone .
-
   #           #create ecr repo
   #           #aws ecr repository --repository-name awscicd/capstone
   #           echo "Post-Build Steps:"
