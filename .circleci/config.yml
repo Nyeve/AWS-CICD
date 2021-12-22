@@ -191,7 +191,7 @@ workflows:
       #- test-app:
        #   requires: [build-app]
       - push-app-to-docker:
-          requires: [test-app,lint-docker,lint-app]
+          requires: [lint-docker]
           filters:
             branches:
               only: [main]
