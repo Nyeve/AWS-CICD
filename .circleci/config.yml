@@ -134,7 +134,7 @@ jobs:
         description: |
           Name of the EKS cluster
         type: string
-        default: capstone
+        default: capstone2
     steps:
       - run:
           name: Install the eksctl tool
@@ -156,7 +156,7 @@ jobs:
       - aws-eks/install-aws-iam-authenticator:
           release-tag: ''
       - aws-eks/create-cluster:
-          cluster-name: capstone
+          cluster-name: capstone2
           node-type: t3.medium
 
   # Deployment of the application
@@ -201,6 +201,6 @@ workflows:
       - create-cluster:
           requires: [push-app-to-docker]
       - create-deployment:
-          cluster-name: capstone
+          cluster-name: capstone2
           aws-region: $AWS_DEFAULT_REGION
           requires: [create-cluster]
