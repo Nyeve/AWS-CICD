@@ -130,7 +130,7 @@ jobs:
   create-cluster:
     executor: aws-eks/python3
     parameters:
-      cluster-name: capstone-cluster
+      cluster-name: 
         description: |
           Name of the EKS cluster
         type: string
@@ -161,9 +161,12 @@ jobs:
 
 # Deployment of the application
   create-deployment:
+    cluster-name: clustername
+    aws-region: $AWS_REGION
+    requires: [create-cluster]
     executor: aws-eks/python3
     parameters:
-      cluster-name: capstone-cluster
+      cluster-name: 
         description: |
           Name of the EKS cluster
         type: string
