@@ -131,7 +131,7 @@ jobs:
         description: |
           Name of the EKS cluster
         type: string
-        default: capstone
+        default: nodeapp
     steps:
       - run:
           name: Install the eksctl tool
@@ -153,7 +153,7 @@ jobs:
       - aws-eks/install-aws-iam-authenticator:
           release-tag: ''
       - aws-eks/create-cluster:
-          cluster-name: capstone
+          cluster-name: nodeapp
           node-type: t3.medium
 
   # Deployment of the application
@@ -178,7 +178,7 @@ jobs:
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: deployment.yml
-          resource-name: deployment/capstone
+          resource-name: deployment/nodeapp
 
 workflows:
   default:
@@ -198,6 +198,6 @@ workflows:
       - create-cluster:
           requires: [push-app-to-docker]
       - create-deployment:
-          cluster-name: capstone
+          cluster-name: nodeapp
           aws-region: $AWS_DEFAULT_REGION
           requires: [create-cluster]
