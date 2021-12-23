@@ -9,7 +9,6 @@ docker build -t nyeve/nodeapp:latest .
 # Step 2: 
 # List docker images
 docker image ls
-
 # Step 3: 
 # Run flask app
-docker run -t -i -p 8080:3000 nodeapp:latest
+docker run -t -i -p 8080:8000 nodeapp:latest
